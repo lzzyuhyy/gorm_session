@@ -1,4 +1,4 @@
-module gorm_session
+module github.com/lzzyuhyy/gorm_session
 
 go 1.22.3
 
