@@ -7,8 +7,8 @@ import (
 func SessionAction(db *gorm.DB, actions func(db *gorm.DB) *gorm.DB) {
 	tx := db.Begin()
 
-	res := actions(tx)
-	if res.Error != nil {
+	err := actions(tx)
+	if err != nil {
 		tx.Rollback()
 		return
 	}
