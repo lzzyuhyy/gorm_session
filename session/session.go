@@ -4,10 +4,10 @@ import (
 	"gorm.io/gorm"
 )
 
-func SessionAction(db *gorm.DB, actions func() error) {
+func SessionAction(db *gorm.DB, actions func(db *gorm.DB) error) {
 	db.Begin()
 
-	err := actions()
+	err := actions(db)
 	if err != nil {
 		db.Rollback()
 	}
