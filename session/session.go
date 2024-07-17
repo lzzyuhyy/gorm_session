@@ -5,14 +5,14 @@ import (
 )
 
 func SessionAction(db *gorm.DB, actions func(db *gorm.DB) *gorm.DB) {
-	db.Begin()
+	tx := db.Begin()
 
-	res := actions(db)
+	res := actions(tx)
 	if res.Error != nil {
-		db.Rollback()
+		tx.Rollback()
 		return
 	}
 
-	db.Commit()
+	tx.Commit()
 
 }
