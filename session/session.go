@@ -10,6 +10,7 @@ func SessionAction(db *gorm.DB, actions func(db *gorm.DB) error) {
 	err := actions(db)
 	if err != nil {
 		db.Rollback()
+		return
 	}
 
 	db.Commit()
